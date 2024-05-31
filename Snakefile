@@ -81,9 +81,11 @@ rule beeswarm:
         "results/quast/beeswarm_vis_assemblies.png"
     conda:
         "envs/beeswarm.yaml"
+    log:
+        "logs/beeswarm.log"
     shell: 
         """
-        scripts/beeswarm_vis_assemblies.R {input}
+        scripts/beeswarm_vis_assemblies.R {input} 2>> {log}
         mv beeswarm_vis_assemblies.png results/quast/
         """
 rule busco:
@@ -108,9 +110,11 @@ rule buscosummary:
         directory("results/busco_summary")
     conda:
         "envs/busco.yaml"
+    log: 
+        "logs/busco_summary.log"
     shell:
         """
-        scripts/busco_summary.sh results/busco_summary
+        scripts/busco_summary.sh results/busco_summary 2>> {log}
         rm -dr busco_downloads
         rm busco*.log
         """
@@ -175,7 +179,9 @@ rule xlsx:
         "results/checkM2/checkM2_summary_table.txt"
     output:
         "results/skANI_Quast_checkM2_output.xlsx"
+    log:
+        "logs/xlsx.log"
     shell:
         """
-        scripts/skani_quast_checkm2_to_xlsx.py results/
+        scripts/skani_quast_checkm2_to_xlsx.py results/ 2>> {log}
         """

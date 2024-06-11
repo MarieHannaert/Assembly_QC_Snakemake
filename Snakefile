@@ -18,7 +18,6 @@ rule all:
     input:
         "results/quast/beeswarm_vis_assemblies.png",
         "results/busco_summary",
-        "results/checkm/",
         "results/skANI_Quast_checkM2_output.xlsx"
 
 
@@ -117,21 +116,6 @@ rule buscosummary:
         scripts/busco_summary.sh results/busco_summary 2>> {log}
         rm -dr busco_downloads
         rm busco*.log
-        """
-rule checkM:
-    input:
-       "data/assemblies/"
-    output:
-        directory("results/checkm/")
-    params:
-        extra="-t 24"
-    log:
-        "logs/checkM.log"
-    conda:
-        "envs/checkm.yaml"
-    shell:
-        """
-        checkm lineage_wf {params.extra} {input} {output} 2>> {log}
         """
 rule checkM2:
     input:

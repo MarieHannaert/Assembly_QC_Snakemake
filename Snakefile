@@ -113,7 +113,7 @@ rule buscosummary:
         "logs/busco_summary.log"
     shell:
         """
-        scripts/busco_summary.sh results/busco_summary 2>> {log}
+        scripts/summaries_busco.sh results/busco_summary 2>> {log}
         rm -dr busco_downloads
         rm busco*.log
         """
